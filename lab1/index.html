@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="ko" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.82.0" />
+    <meta name="description" content="Building Scalable Web Application">
+<meta name="author" content="BoKil Lee">
+
+    <link rel="icon" href="/pep-webapp/images/favicon.png" type="image/png">
+
+    <title>실습1. Basic Version :: Building Scalable Web Application</title>
+
+    
+    <link href="/pep-webapp/css/nucleus.css?1619329108" rel="stylesheet">
+    <link href="/pep-webapp/css/fontawesome-all.min.css?1619329108" rel="stylesheet">
+    <link href="/pep-webapp/css/hybrid.css?1619329108" rel="stylesheet">
+    <link href="/pep-webapp/css/featherlight.min.css?1619329108" rel="stylesheet">
+    <link href="/pep-webapp/css/perfect-scrollbar.min.css?1619329108" rel="stylesheet">
+    <link href="/pep-webapp/css/auto-complete.css?1619329108" rel="stylesheet">
+    <link href="/pep-webapp/css/atom-one-dark-reasonable.css?1619329108" rel="stylesheet">
+    <link href="/pep-webapp/css/theme.css?1619329108" rel="stylesheet">
+    <link href="/pep-webapp/css/hugo-theme.css?1619329108" rel="stylesheet">
+    
+      <link href="/pep-webapp/css/theme-aws.css?1619329108" rel="stylesheet">
+    
+
+    <script src="/pep-webapp/js/jquery-3.3.1.min.js?1619329108"></script>
+
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/pep-webapp/lab1/">
+    <nav id="sidebar" class="showVisitedLinks">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="/pep-webapp">
+	<img src="/pep-webapp/images/logo.png" height="70px"/>
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="/pep-webapp/js/lunr.min.js?1619329108"></script>
+<script type="text/javascript" src="/pep-webapp/js/auto-complete.js?1619329108"></script>
+<script type="text/javascript">
+    
+        var baseurl = "\/pep-webapp\/";
+    
+</script>
+<script type="text/javascript" src="/pep-webapp/js/search.js?1619329108"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/pep-webapp/lab1/" title="실습1. Basic Version" class="dd-item 
+        parent
+        active
+        
+        ">
+      <a href="/pep-webapp/lab1/">
+          <b>1. </b>실습1. Basic Version
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/pep-webapp/lab2/" title="실습2. Load Balanced Solution" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/pep-webapp/lab2/">
+          <b>2. </b>실습2. Load Balanced Solution
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/pep-webapp/lab3/" title="실습3. S3 Integration" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/pep-webapp/lab3/">
+          <b>3. </b>실습3. S3 Integration
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/pep-webapp/lab4/" title="실습4. AutoScaling" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/pep-webapp/lab4/">
+          <b>4. </b>실습4. AutoScaling
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/pep-webapp/lab5/" title="실습5. DB Cache" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/pep-webapp/lab5/">
+          <b>5. </b>실습5. DB Cache
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/pep-webapp/lab6/" title="실습6. CDN Integration" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/pep-webapp/lab6/">
+          <b>6. </b>실습6. CDN Integration
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/pep-webapp/lab7/" title="실습7. Log Analysis" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/pep-webapp/lab7/">
+          <b>7. </b>실습7. Log Analysis
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+
+    
+    <section id="prefooter">
+      <hr/>
+      <ul>
+      
+      
+      
+        <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fas fa-history fa-fw"></i> </a></li>
+      
+      </ul>
+    </section>
+    
+    <section id="footer">
+      © 2021 Amazon Web Services Korea LLC, All rights reserved.
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            <a href='/pep-webapp/'>홈</a> > 실습1. Basic Version
+          
+         
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#level-1--basic-version-all-in-one">Level 1 – Basic Version (All in one)</a></li>
+    <li><a href="#인스턴스-시작">인스턴스 시작</a></li>
+    <li><a href="#소프트웨어-설치">소프트웨어 설치</a></li>
+  </ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              실습1. Basic Version
+            </h1>
+          
+
+        
+
+
+
+
+	<h2 id="level-1--basic-version-all-in-one">Level 1 – Basic Version (All in one)</h2>
+<ul>
+<li><strong>Single Server Implementation</strong></li>
+<li><strong>Web Frontend (Apache + PHP)</strong></li>
+<li><strong>DB Backend (MYSQL)</strong></li>
+<li><strong>Upload to local storage</strong></li>
+</ul>
+<h2 id="인스턴스-시작">인스턴스 시작</h2>
+<ul>
+<li>이 랩에서는 단일 서버 위에 웹 애플리케이션 구동에 필요한 웹서버프로그램, 데이터베이스 엔진 그리고 프로그래밍에 필요한 프레임워크를 설치합니다.</li>
+<li>그리고 개발한 소프트웨어를 배포하여 웹 애플리케이션의 동작을 확인합니다.</li>
+<li>클라우드 환경에서 단일 서버는 EC2 이고 웹애플리케이션 구동에 필요한 소프트웨어는 Apache, PHP, MySQL 입니다. EC2 인스턴스로 사용할 이미지(AMI)는 <code>Ubuntu 18.04 AMI</code> 입니다.</li>
+</ul>
+<p><img src="images/image3.png" alt="images/image3.png"></p>
+<ul>
+<li>EC2 생성에 필요한 단계를 진행하시고 웹서비스와 SSH 접속을 위해 80번과 22번 포트를 열어줍니다.</li>
+<li>EC2 생성이 완료된 후에는 SSH 로 접속하여 MySQL, PHP, Apache 소프트웨어를 설치하고 git 명령을 통해 웹애플리케이션 데모를 위한 개발코드를 다운로드 합니다.</li>
+</ul>
+<h2 id="소프트웨어-설치">소프트웨어 설치</h2>
+<p><strong>MySQL 데이터베이스 설치</strong></p>
+<p><code>sudo apt-get update</code></p>
+<p><code>sudo apt-get install mysql-server</code></p>
+<p><code>sudo mysql_secure_installation</code></p>
+<p>👉  type &lsquo;Y&rsquo; for followed question</p>
+<p><strong>Apache 와 PHP 설치</strong></p>
+<pre><code>sudo apt-get install apache2 php libapache2-mod-php php-mysql php-curl php-xml php-memcached awscli
+</code></pre><p><strong>Apache 서버 재시작</strong></p>
+<pre><code>sudo service apache2 restart
+</code></pre><p><strong>git 설치 및 데모용 웹애플리케이션 다운로드</strong></p>
+<pre><code>sudo apt-get install git
+cd /var
+sudo chown -R ubuntu:ubuntu www
+cd /var/www/html
+git clone https://github.com/qyjohn/web-demo
+cd web-demo
+</code></pre><p><strong>웹서비스용 디렉토리 권한 변경</strong></p>
+<pre><code>  sudo chown -R www-data:www-data uploads*
+</code></pre><p><strong>데모용 웹애플리케이션 데이터베이스 생성</strong></p>
+<pre><code>sudo mysql
+mysql\&gt; CREATE DATABASE web_demo;
+mysql\&gt; CREATE USER \'username\'@\'localhost\' IDENTIFIED BY 'password\';
+mysql\&gt; GRANT ALL PRIVILEGES ON web_demo.\* TO 'username\'@\'localhost\';
+mysql\&gt; quit
+</code></pre><p><strong>데모용 데이터 추가</strong></p>
+<ul>
+<li>개발소스코드의 Database 접속을 위한 데이터베이스이름, 사용자 이름과 비밀번호는 각각“web_demo”, “username” 그리고 “password” 입니다. * git 명령으로 다운로드 받은 소스코드 내에는 미리 입력된 web_demo.sql 라는 SQL 문이 포함되어 있으니 이를 import 하여Database에 데이터를 추가합니다.</li>
+<li>git 명령으로 다운로드 받은 소스코드 내에는 미리 입력된 web_demo.sql 라는 SQL 문이 포함되어 있으니 이를 import 하여Database에 데이터를 추가합니다.</li>
+</ul>
+<pre><code>cd /var/www/html/web-demo
+mysql -u username -p web_demo &lt; web_demo.sql
+</code></pre><p><strong>주의사항</strong></p>
+<ul>
+<li>만약 데이터베이스이름, 사용자이름, 비밀번호를 변경하고 싶을 경우 vi 에디터를 이용하여config.php 의 내용을 직접 수정하시기 바랍니다.</li>
+<li>PC 에 있는 아무 인터넷브라우저 주소창에 <a href="http://ip-address/web-demo/index.php">http://ip-address/web-demo/index.php</a> 를 입력하여 데모 애플리케이션을 확인해 보시기 바랍니다.</li>
+<li>기타 데모 애플리케이션과 관련된 제약 사항은 아래 내용을 참고해주세요.</li>
+</ul>
+<blockquote>
+<p>You can login with your name, then upload some photos for testing. (You might have noticed that this demo application does not ask you for a password. This is because we would like to make things as simple as possible. Handling user password is a very complicate issue, which is beyond the scope of this entry level tutorial.) Then I suggest that you spend 10 minutes reading through the demo code index.php. The demo code has reasonable documentation in the form of comments, so I am not going to explain the code here.</p>
+</blockquote>
+<blockquote>
+<p>Now you are able to get your website working, please upload some more pictures for testing. Upload some small pictures and some big pictures (like 20 MB) to see what happens. Fix any issues you may observe in the tests.</p>
+</blockquote>
+
+
+
+
+
+<footer class=" footline" >
+	
+</footer>
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+	 
+	 
+		
+			<a class="nav nav-prev" href="/pep-webapp/" title="홈"> <i class="fa fa-chevron-left"></i></a>
+		
+		
+			<a class="nav nav-next" href="/pep-webapp/lab2/" title="실습2. Load Balanced Solution" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/pep-webapp/js/clipboard.min.js?1619329108"></script>
+    <script src="/pep-webapp/js/perfect-scrollbar.min.js?1619329108"></script>
+    <script src="/pep-webapp/js/perfect-scrollbar.jquery.min.js?1619329108"></script>
+    <script src="/pep-webapp/js/jquery.sticky.js?1619329108"></script>
+    <script src="/pep-webapp/js/featherlight.min.js?1619329108"></script>
+    <script src="/pep-webapp/js/highlight.pack.js?1619329108"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/pep-webapp/js/modernizr.custom-3.6.0.js?1619329108"></script>
+    <script src="/pep-webapp/js/learn.js?1619329108"></script>
+    <script src="/pep-webapp/js/hugo-learn.js?1619329108"></script>
+
+    <link href="/pep-webapp/mermaid/mermaid.css?1619329108" rel="stylesheet" />
+    <script src="/pep-webapp/mermaid/mermaid.js?1619329108"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    
+  </body>
+</html>

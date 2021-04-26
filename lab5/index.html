@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="ko" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.82.0" />
+    <meta name="description" content="Building Scalable Web Application">
+<meta name="author" content="BoKil Lee">
+
+    <link rel="icon" href="/pep-webapp/images/favicon.png" type="image/png">
+
+    <title>실습5. DB Cache :: Building Scalable Web Application</title>
+
+    
+    <link href="/pep-webapp/css/nucleus.css?1619329108" rel="stylesheet">
+    <link href="/pep-webapp/css/fontawesome-all.min.css?1619329108" rel="stylesheet">
+    <link href="/pep-webapp/css/hybrid.css?1619329108" rel="stylesheet">
+    <link href="/pep-webapp/css/featherlight.min.css?1619329108" rel="stylesheet">
+    <link href="/pep-webapp/css/perfect-scrollbar.min.css?1619329108" rel="stylesheet">
+    <link href="/pep-webapp/css/auto-complete.css?1619329108" rel="stylesheet">
+    <link href="/pep-webapp/css/atom-one-dark-reasonable.css?1619329108" rel="stylesheet">
+    <link href="/pep-webapp/css/theme.css?1619329108" rel="stylesheet">
+    <link href="/pep-webapp/css/hugo-theme.css?1619329108" rel="stylesheet">
+    
+      <link href="/pep-webapp/css/theme-aws.css?1619329108" rel="stylesheet">
+    
+
+    <script src="/pep-webapp/js/jquery-3.3.1.min.js?1619329108"></script>
+
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/pep-webapp/lab5/">
+    <nav id="sidebar" class="showVisitedLinks">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="/pep-webapp">
+	<img src="/pep-webapp/images/logo.png" height="70px"/>
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="/pep-webapp/js/lunr.min.js?1619329108"></script>
+<script type="text/javascript" src="/pep-webapp/js/auto-complete.js?1619329108"></script>
+<script type="text/javascript">
+    
+        var baseurl = "\/pep-webapp\/";
+    
+</script>
+<script type="text/javascript" src="/pep-webapp/js/search.js?1619329108"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/pep-webapp/lab1/" title="실습1. Basic Version" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/pep-webapp/lab1/">
+          <b>1. </b>실습1. Basic Version
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/pep-webapp/lab2/" title="실습2. Load Balanced Solution" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/pep-webapp/lab2/">
+          <b>2. </b>실습2. Load Balanced Solution
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/pep-webapp/lab3/" title="실습3. S3 Integration" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/pep-webapp/lab3/">
+          <b>3. </b>실습3. S3 Integration
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/pep-webapp/lab4/" title="실습4. AutoScaling" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/pep-webapp/lab4/">
+          <b>4. </b>실습4. AutoScaling
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/pep-webapp/lab5/" title="실습5. DB Cache" class="dd-item 
+        parent
+        active
+        
+        ">
+      <a href="/pep-webapp/lab5/">
+          <b>5. </b>실습5. DB Cache
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/pep-webapp/lab6/" title="실습6. CDN Integration" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/pep-webapp/lab6/">
+          <b>6. </b>실습6. CDN Integration
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/pep-webapp/lab7/" title="실습7. Log Analysis" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/pep-webapp/lab7/">
+          <b>7. </b>실습7. Log Analysis
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+
+    
+    <section id="prefooter">
+      <hr/>
+      <ul>
+      
+      
+      
+        <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fas fa-history fa-fw"></i> </a></li>
+      
+      </ul>
+    </section>
+    
+    <section id="footer">
+      © 2021 Amazon Web Services Korea LLC, All rights reserved.
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            <a href='/pep-webapp/'>홈</a> > 실습5. DB Cache
+          
+         
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#level-5--implement-a-cache-layer-between-the-web-server-and-the-database-server">Level 5 – Implement a cache layer between the web server and the database server</a>
+      <ul>
+        <li><a href="#database-caching-through-elasticache">Database caching through ElastiCache</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              실습5. DB Cache
+            </h1>
+          
+
+        
+
+
+
+
+	<h2 id="level-5--implement-a-cache-layer-between-the-web-server-and-the-database-server">Level 5 – Implement a cache layer between the web server and the database server</h2>
+<ul>
+<li><strong>Reduce DB Pressure</strong></li>
+<li><strong>Reuse ElastiCache node</strong></li>
+</ul>
+<p>이번 레벨에서는 ElastiCache 를 통해 database를 캐싱 하도록 데모 코드를 수정하고 캐싱 동작을 확인합니다.</p>
+<h3 id="database-caching-through-elasticache">Database caching through ElastiCache</h3>
+<ul>
+<li>
+<p>This caching behavior is not enable by default. You can edit config.php on all web servers with details regarding the cache server:</p>
+</li>
+<li>
+<p>in config.php, there is a corresponding statement :</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#75715e">// Cache configuration
+</span><span style="color:#75715e"></span>$enable_cache <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+$cache_type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;memcached&#34;</span>;	<span style="color:#75715e">// memcached or redis
+</span><span style="color:#75715e"></span>$cache_key  <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;images_html&#34;</span>;
+<span style="color:#66d9ef">if</span> ($enable_cache <span style="color:#f92672">&amp;&amp;</span> ($cache_type <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;memcached&#34;</span>))
+{
+    $cache <span style="color:#f92672">=</span> <span style="color:#a6e22e">open_memcache_connection</span>();
+}
+<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> ($enable_cache <span style="color:#f92672">&amp;&amp;</span> ($cache_type <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;redis&#34;</span>))
+{
+    $cache <span style="color:#f92672">=</span> <span style="color:#a6e22e">open_redis_connection</span>();
+}
+</code></pre></div></li>
+<li>
+<p>Use AutoScaling to scale your server fleet in a dynamic fashion
+Refresh the demo application in your browser, you will see that the “Getting latest N records from database.” message is now gone, indicating that the information you are seeing is obtained from ElastiCache. When you upload a new image, you will see this message again, indicating the cache is being updated.</p>
+<p><img src="images/Untitled.png" alt="images/Untitled.png"></p>
+</li>
+<li>
+<p>The following code is responsible of handling this cache logic:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#75715e">// Get the most recent N images
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span> ($enable_cache)
+{
+    <span style="color:#75715e">// Attemp to get the cached records for the front page
+</span><span style="color:#75715e"></span>    $images_html <span style="color:#f92672">=</span> $cache<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">get</span>($cache_key);
+    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>$images_html)
+    {
+        <span style="color:#75715e">// If there is no such cached record, get it from the database
+</span><span style="color:#75715e"></span>        $images <span style="color:#f92672">=</span> <span style="color:#a6e22e">retrieve_recent_uploads</span>($db, <span style="color:#ae81ff">10</span>, $storage_option);
+        <span style="color:#75715e">// Convert the records into HTML
+</span><span style="color:#75715e"></span>        $images_html <span style="color:#f92672">=</span> <span style="color:#a6e22e">db_rows_2_html</span>($images, $storage_option, $hd_folder, $s3_bucket, $s3_baseurl);
+        <span style="color:#75715e">// Then put the HTML into cache
+</span><span style="color:#75715e"></span>        $cache<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">set</span>($cache_key, $images_html);
+    }
+}
+<span style="color:#66d9ef">else</span>
+{
+    <span style="color:#75715e">// This statement get the last 10 records from the database
+</span><span style="color:#75715e"></span>    $images <span style="color:#f92672">=</span> <span style="color:#a6e22e">retrieve_recent_uploads</span>($db, <span style="color:#ae81ff">10</span>, $storage_option);
+    $images_html <span style="color:#f92672">=</span> <span style="color:#a6e22e">db_rows_2_html</span>($images, $storage_option, $hd_folder, $s3_bucket, $s3_baseurl);
+}
+
+<span style="color:#75715e">// Display the images
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">echo</span> $images_html;
+</code></pre></div></li>
+<li>
+<p>Also pay attention to this code when doing image uploads. We deleted the cache after the user uploads an images. This way, when the next request comes in, we will fetch the latest records from the database, and put them into the cache again.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#66d9ef">if</span> ($enable_cache)
+        {
+            <span style="color:#75715e">// Delete the cached record, the user will query the database to get an updated version
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">if</span> ($cache_type <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;memcached&#34;</span>)
+            {
+                $cache<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">delete</span>($cache_key);
+            }
+            <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> ($cache_type <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;redis&#34;</span>)
+            {
+                $cache<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">del</span>($cache_key);
+            }
+        }
+</code></pre></div></li>
+</ul>
+
+
+
+
+
+<footer class=" footline" >
+	
+</footer>
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+	 
+	 
+		
+			<a class="nav nav-prev" href="/pep-webapp/lab4/" title="실습4. AutoScaling"> <i class="fa fa-chevron-left"></i></a>
+		
+		
+			<a class="nav nav-next" href="/pep-webapp/lab6/" title="실습6. CDN Integration" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/pep-webapp/js/clipboard.min.js?1619329108"></script>
+    <script src="/pep-webapp/js/perfect-scrollbar.min.js?1619329108"></script>
+    <script src="/pep-webapp/js/perfect-scrollbar.jquery.min.js?1619329108"></script>
+    <script src="/pep-webapp/js/jquery.sticky.js?1619329108"></script>
+    <script src="/pep-webapp/js/featherlight.min.js?1619329108"></script>
+    <script src="/pep-webapp/js/highlight.pack.js?1619329108"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/pep-webapp/js/modernizr.custom-3.6.0.js?1619329108"></script>
+    <script src="/pep-webapp/js/learn.js?1619329108"></script>
+    <script src="/pep-webapp/js/hugo-learn.js?1619329108"></script>
+
+    <link href="/pep-webapp/mermaid/mermaid.css?1619329108" rel="stylesheet" />
+    <script src="/pep-webapp/mermaid/mermaid.js?1619329108"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    
+  </body>
+</html>

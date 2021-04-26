@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="ko" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.82.0" />
+    <meta name="description" content="Building Scalable Web Application">
+<meta name="author" content="BoKil Lee">
+
+    <link rel="icon" href="/pep-webapp/images/favicon.png" type="image/png">
+
+    <title>실습3. S3 Integration :: Building Scalable Web Application</title>
+
+    
+    <link href="/pep-webapp/css/nucleus.css?1619329108" rel="stylesheet">
+    <link href="/pep-webapp/css/fontawesome-all.min.css?1619329108" rel="stylesheet">
+    <link href="/pep-webapp/css/hybrid.css?1619329108" rel="stylesheet">
+    <link href="/pep-webapp/css/featherlight.min.css?1619329108" rel="stylesheet">
+    <link href="/pep-webapp/css/perfect-scrollbar.min.css?1619329108" rel="stylesheet">
+    <link href="/pep-webapp/css/auto-complete.css?1619329108" rel="stylesheet">
+    <link href="/pep-webapp/css/atom-one-dark-reasonable.css?1619329108" rel="stylesheet">
+    <link href="/pep-webapp/css/theme.css?1619329108" rel="stylesheet">
+    <link href="/pep-webapp/css/hugo-theme.css?1619329108" rel="stylesheet">
+    
+      <link href="/pep-webapp/css/theme-aws.css?1619329108" rel="stylesheet">
+    
+
+    <script src="/pep-webapp/js/jquery-3.3.1.min.js?1619329108"></script>
+
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/pep-webapp/lab3/">
+    <nav id="sidebar" class="showVisitedLinks">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="/pep-webapp">
+	<img src="/pep-webapp/images/logo.png" height="70px"/>
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="/pep-webapp/js/lunr.min.js?1619329108"></script>
+<script type="text/javascript" src="/pep-webapp/js/auto-complete.js?1619329108"></script>
+<script type="text/javascript">
+    
+        var baseurl = "\/pep-webapp\/";
+    
+</script>
+<script type="text/javascript" src="/pep-webapp/js/search.js?1619329108"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/pep-webapp/lab1/" title="실습1. Basic Version" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/pep-webapp/lab1/">
+          <b>1. </b>실습1. Basic Version
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/pep-webapp/lab2/" title="실습2. Load Balanced Solution" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/pep-webapp/lab2/">
+          <b>2. </b>실습2. Load Balanced Solution
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/pep-webapp/lab3/" title="실습3. S3 Integration" class="dd-item 
+        parent
+        active
+        
+        ">
+      <a href="/pep-webapp/lab3/">
+          <b>3. </b>실습3. S3 Integration
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/pep-webapp/lab4/" title="실습4. AutoScaling" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/pep-webapp/lab4/">
+          <b>4. </b>실습4. AutoScaling
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/pep-webapp/lab5/" title="실습5. DB Cache" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/pep-webapp/lab5/">
+          <b>5. </b>실습5. DB Cache
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/pep-webapp/lab6/" title="실습6. CDN Integration" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/pep-webapp/lab6/">
+          <b>6. </b>실습6. CDN Integration
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/pep-webapp/lab7/" title="실습7. Log Analysis" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/pep-webapp/lab7/">
+          <b>7. </b>실습7. Log Analysis
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+
+    
+    <section id="prefooter">
+      <hr/>
+      <ul>
+      
+      
+      
+        <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fas fa-history fa-fw"></i> </a></li>
+      
+      </ul>
+    </section>
+    
+    <section id="footer">
+      © 2021 Amazon Web Services Korea LLC, All rights reserved.
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            <a href='/pep-webapp/'>홈</a> > 실습3. S3 Integration
+          
+         
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#level-3--offload-user-loads-to-s3">Level 3 – Offload user loads to S3</a>
+      <ul>
+        <li><a href="#step-1---create-s3-bucket">STEP 1 - Create S3 bucket</a></li>
+        <li><a href="#step-2---moving-the-storage-from-efs-to-s3-since-your-we-application-is-limited-by-the-capability-of-the-shared-file-system">STEP 2 - Moving the storage from EFS to S3 since your we application is limited by the capability of the shared file system</a></li>
+        <li><a href="#step-3---attach-iam-role-to-both-ec2-instances"><strong>STEP 3 - Attach IAM Role to both EC2 Instances</strong></a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              실습3. S3 Integration
+            </h1>
+          
+
+        
+
+
+
+
+	<h2 id="level-3--offload-user-loads-to-s3">Level 3 – Offload user loads to S3</h2>
+<ul>
+<li><strong>Shared storage</strong></li>
+<li><strong>Reduce pressure on web server</strong></li>
+<li><strong>Why IAM Roles</strong></li>
+</ul>
+<p>트래픽이 증가할 경우 공유파일시스템을 통한 서비스에는 제한이 있을 수 있습니다. 이 단계에서는 스토리지를 EFS에서 S3로 이동하여 이 문제를 해결합니다.</p>
+<h3 id="step-1---create-s3-bucket">STEP 1 - Create S3 bucket</h3>
+<ul>
+<li>It is very important that your S3 bucket does not &ldquo;Block new public ACLs and uploading public objects&rdquo;.</li>
+<li>You can view the configurations of your S3 bucket in the S3 console under &ldquo;Permissions -&gt; Block public Access Settings (Off)&rdquo;.</li>
+</ul>
+<h3 id="step-2---moving-the-storage-from-efs-to-s3-since-your-we-application-is-limited-by-the-capability-of-the-shared-file-system">STEP 2 - Moving the storage from EFS to S3 since your we application is limited by the capability of the shared file system</h3>
+<ul>
+<li>
+<p>From one of the EC2 instance, edit /efs/web-demo/config.php and make some minor changes. It does not matter from which EC2 instance you make the changes, because the source files are stored on EFS. The changes will be reflected on both EC2 instances.</p>
+</li>
+<li>
+<p>In the following configuration, $s3_bucket is the name of the S3 bucket for share storage, and $s3_baseurl is the URL pointing to the S3 endpoint in the region hosting your S3 bucket. You can also identify this end point in the S3 Console by viewing the properties of an S3 object in the S3 bucket.</p>
+</li>
+<li>
+<p>Then we use the EFS file system to store our web application.he EFS file system:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">$storage_option <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;s3&#34;</span>; <span style="color:#75715e">// hd or s3
+</span><span style="color:#75715e"></span>$s3_region  <span style="color:#f92672">=</span> <span style="color:#a6e22e">“ap</span><span style="color:#f92672">-</span><span style="color:#a6e22e">northeast</span><span style="color:#f92672">-</span><span style="color:#ae81ff">2</span><span style="color:#e6db74">&#34;;
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">$s3_bucket</span><span style="color:#e6db74">  = &#34;</span><span style="color:#a6e22e">your_s3_bucket_name</span><span style="color:#e6db74">&#34;;
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">$s3_prefix</span><span style="color:#e6db74">  = &#34;</span><span style="color:#a6e22e">uploads</span><span style="color:#e6db74">&#34;;
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">$s3_baseurl</span><span style="color:#e6db74"> = &#34;</span><span style="color:#a6e22e">https</span><span style="color:#f92672">://</span><span style="color:#a6e22e">s3</span><span style="color:#f92672">.</span><span style="color:#a6e22e">ap</span><span style="color:#f92672">-</span><span style="color:#a6e22e">northeast</span><span style="color:#f92672">-</span><span style="color:#ae81ff">2.</span><span style="color:#a6e22e">amazonaws</span><span style="color:#f92672">.</span><span style="color:#a6e22e">com</span><span style="color:#f92672">/</span><span style="color:#e6db74">&#34;;
+</span></code></pre></div></li>
+</ul>
+<h3 id="step-3---attach-iam-role-to-both-ec2-instances"><strong>STEP 3 - Attach IAM Role to both EC2 Instances</strong></h3>
+<ul>
+<li>In order for this new setting to work, we need to attach an IAM Role to both EC2 instances. In the IAM Console, create an EC2 Role in the IAM Console, which allows full access to S3 (IAM Console -&gt; Role -&gt; Create Role -&gt; AWS Service -&gt; EC2 -&gt; EC2 -&gt; Amazon S3 Full Access). In the EC2 Console, attach the newly created role to both EC2 instances one by one (Instance -&gt; Actions -&gt; Instance Settings -&gt; Attach/Replace IAM Role).</li>
+<li>In your browser, again browse to <a href="http://elb-endpoint/web-demo/index.php">http://elb-endpoint/web-demo/index.php</a>. At this point you will see missing images, because the previously uploaded images are not available on S3. Newly uploaded images will go to S3 instead of local disk.
+The reason we use IAM Role in this tutorial is that with IAM Role you do not need to supply your AWS Access Key and Secret Key in your code. Rather, Your code will assume the role assigned to the EC2 instance, and access the AWS resources that your EC2 instance is allowed to access. Today many people and organizations host their source code on <a href="http://github.com/">github.com</a> or some other public repositories. By using IAM roles you no longer hard code your AWS credentials in your application, thus eliminating the possibility of leaking your AWS credentials to the public.</li>
+</ul>
+
+
+
+
+
+<footer class=" footline" >
+	
+</footer>
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+	 
+	 
+		
+			<a class="nav nav-prev" href="/pep-webapp/lab2/" title="실습2. Load Balanced Solution"> <i class="fa fa-chevron-left"></i></a>
+		
+		
+			<a class="nav nav-next" href="/pep-webapp/lab4/" title="실습4. AutoScaling" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/pep-webapp/js/clipboard.min.js?1619329108"></script>
+    <script src="/pep-webapp/js/perfect-scrollbar.min.js?1619329108"></script>
+    <script src="/pep-webapp/js/perfect-scrollbar.jquery.min.js?1619329108"></script>
+    <script src="/pep-webapp/js/jquery.sticky.js?1619329108"></script>
+    <script src="/pep-webapp/js/featherlight.min.js?1619329108"></script>
+    <script src="/pep-webapp/js/highlight.pack.js?1619329108"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/pep-webapp/js/modernizr.custom-3.6.0.js?1619329108"></script>
+    <script src="/pep-webapp/js/learn.js?1619329108"></script>
+    <script src="/pep-webapp/js/hugo-learn.js?1619329108"></script>
+
+    <link href="/pep-webapp/mermaid/mermaid.css?1619329108" rel="stylesheet" />
+    <script src="/pep-webapp/mermaid/mermaid.js?1619329108"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    
+  </body>
+</html>
