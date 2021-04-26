@@ -2,25 +2,25 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>/pep-webapp/</loc>
+    <loc>/</loc>
     <lastmod>2021-04-25T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/pep-webapp/lab1/</loc>
+    <loc>/lab1/</loc>
   </url><url>
-    <loc>/pep-webapp/lab2/</loc>
+    <loc>/lab2/</loc>
   </url><url>
-    <loc>/pep-webapp/lab3/</loc>
+    <loc>/lab3/</loc>
   </url><url>
-    <loc>/pep-webapp/lab4/</loc>
+    <loc>/lab4/</loc>
   </url><url>
-    <loc>/pep-webapp/lab5/</loc>
+    <loc>/lab5/</loc>
   </url><url>
-    <loc>/pep-webapp/lab6/</loc>
+    <loc>/lab6/</loc>
   </url><url>
-    <loc>/pep-webapp/lab7/</loc>
+    <loc>/lab7/</loc>
   </url><url>
-    <loc>/pep-webapp/categories/</loc>
+    <loc>/categories/</loc>
   </url><url>
-    <loc>/pep-webapp/tags/</loc>
+    <loc>/tags/</loc>
   </url>
 </urlset>
