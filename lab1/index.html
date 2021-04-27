@@ -12,20 +12,20 @@
     <title>실습1. Basic Version :: Building Scalable Web Application</title>
 
     
-    <link href="/css/nucleus.css?1619418538" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1619418538" rel="stylesheet">
-    <link href="/css/hybrid.css?1619418538" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1619418538" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1619418538" rel="stylesheet">
-    <link href="/css/auto-complete.css?1619418538" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1619418538" rel="stylesheet">
-    <link href="/css/theme.css?1619418538" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1619418538" rel="stylesheet">
+    <link href="/css/nucleus.css?1619499944" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1619499944" rel="stylesheet">
+    <link href="/css/hybrid.css?1619499944" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1619499944" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1619499944" rel="stylesheet">
+    <link href="/css/auto-complete.css?1619499944" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1619499944" rel="stylesheet">
+    <link href="/css/theme.css?1619499944" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1619499944" rel="stylesheet">
     
-      <link href="/css/theme-aws.css?1619418538" rel="stylesheet">
+      <link href="/css/theme-aws.css?1619499944" rel="stylesheet">
     
 
-    <script src="/js/jquery-3.3.1.min.js?1619418538"></script>
+    <script src="/js/jquery-3.3.1.min.js?1619499944"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -42,8 +42,8 @@
 
   <div id="header-wrapper">
     <div id="header">
-      <a id="logo" href="/pep-webapp">
-	<img src="/pep-webapp/images/logo.png" height="70px"/>
+      <a id="logo" href="/">
+	<img src="/images/logo.png" height="70px"/>
 </a>
 
     </div>
@@ -54,14 +54,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1619418538"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1619418538"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1619499944"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1619499944"></script>
 <script type="text/javascript">
     
         var baseurl = "\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1619418538"></script>
+<script type="text/javascript" src="/js/search.js?1619499944"></script>
 
     
   </div>
@@ -360,7 +360,7 @@
 <p><code>sudo apt-get update</code></p>
 <p><code>sudo apt-get install mysql-server</code></p>
 <p><code>sudo mysql_secure_installation</code></p>
-<p>👉  type &lsquo;Y&rsquo; for followed question</p>
+<p>👉  type &lsquo;Y&rsquo; for followed question (Y, 0 = LOW, <!-- raw HTML omitted -->. y, ..)</p>
 <p><strong>Apache 와 PHP 설치</strong></p>
 <pre><code>sudo apt-get install apache2 php libapache2-mod-php php-mysql php-curl php-xml php-memcached awscli
 </code></pre><p><strong>Apache 서버 재시작</strong></p>
@@ -375,11 +375,11 @@ cd web-demo
 </code></pre><p><strong>웹서비스용 디렉토리 권한 변경</strong></p>
 <pre><code>  sudo chown -R www-data:www-data uploads*
 </code></pre><p><strong>데모용 웹애플리케이션 데이터베이스 생성</strong></p>
-<pre><code>sudo mysql
-mysql\&gt; CREATE DATABASE web_demo;
-mysql\&gt; CREATE USER \'username\'@\'localhost\' IDENTIFIED BY 'password\';
-mysql\&gt; GRANT ALL PRIVILEGES ON web_demo.\* TO 'username\'@\'localhost\';
-mysql\&gt; quit
+<p><code>sudo mysql</code></p>
+<pre><code>CREATE DATABASE web_demo;
+CREATE USER 'username'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON web_demo.* TO 'username'@'localhost';
+quit
 </code></pre><p><strong>데모용 데이터 추가</strong></p>
 <ul>
 <li>개발소스코드의 Database 접속을 위한 데이터베이스이름, 사용자 이름과 비밀번호는 각각“web_demo”, “username” 그리고 “password” 입니다. * git 명령으로 다운로드 받은 소스코드 내에는 미리 입력된 web_demo.sql 라는 SQL 문이 포함되어 있으니 이를 import 하여Database에 데이터를 추가합니다.</li>
@@ -572,19 +572,19 @@ mysql -u username -p web_demo &lt; web_demo.sql
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1619418538"></script>
-    <script src="/js/perfect-scrollbar.min.js?1619418538"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1619418538"></script>
-    <script src="/js/jquery.sticky.js?1619418538"></script>
-    <script src="/js/featherlight.min.js?1619418538"></script>
-    <script src="/js/highlight.pack.js?1619418538"></script>
+    <script src="/js/clipboard.min.js?1619499944"></script>
+    <script src="/js/perfect-scrollbar.min.js?1619499944"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1619499944"></script>
+    <script src="/js/jquery.sticky.js?1619499944"></script>
+    <script src="/js/featherlight.min.js?1619499944"></script>
+    <script src="/js/highlight.pack.js?1619499944"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1619418538"></script>
-    <script src="/js/learn.js?1619418538"></script>
-    <script src="/js/hugo-learn.js?1619418538"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1619499944"></script>
+    <script src="/js/learn.js?1619499944"></script>
+    <script src="/js/hugo-learn.js?1619499944"></script>
 
-    <link href="/mermaid/mermaid.css?1619418538" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1619418538"></script>
+    <link href="/mermaid/mermaid.css?1619499944" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1619499944"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>
