@@ -12,20 +12,20 @@
     <title>실습4. AutoScaling :: Building Scalable Web Application</title>
 
     
-    <link href="/css/nucleus.css?1619600851" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1619600851" rel="stylesheet">
-    <link href="/css/hybrid.css?1619600851" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1619600851" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1619600851" rel="stylesheet">
-    <link href="/css/auto-complete.css?1619600851" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1619600851" rel="stylesheet">
-    <link href="/css/theme.css?1619600851" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1619600851" rel="stylesheet">
+    <link href="/css/nucleus.css?1619615347" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1619615347" rel="stylesheet">
+    <link href="/css/hybrid.css?1619615347" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1619615347" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1619615347" rel="stylesheet">
+    <link href="/css/auto-complete.css?1619615347" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1619615347" rel="stylesheet">
+    <link href="/css/theme.css?1619615347" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1619615347" rel="stylesheet">
     
-      <link href="/css/theme-aws.css?1619600851" rel="stylesheet">
+      <link href="/css/theme-aws.css?1619615347" rel="stylesheet">
     
 
-    <script src="/js/jquery-3.3.1.min.js?1619600851"></script>
+    <script src="/js/jquery-3.3.1.min.js?1619615347"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -54,14 +54,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1619600851"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1619600851"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1619615347"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1619615347"></script>
 <script type="text/javascript">
     
         var baseurl = "\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1619600851"></script>
+<script type="text/javascript" src="/js/search.js?1619615347"></script>
 
     
   </div>
@@ -312,12 +312,6 @@
       <ul>
         <li><a href="#모의-실험-환경-구성">모의 실험 환경 구성</a></li>
         <li><a href="#오토스케이링을-이용하여-동적으로-백엔드-서버-수-조정">오토스케이링을 이용하여 동적으로 백엔드 서버 수 조정</a></li>
-        <li><a href="#step-2---install-the-apache-and-php">STEP 2 - Install the Apache and PHP</a></li>
-        <li><a href="#step-3---launch-an-rds-instance"><strong>STEP 3 - Launch an RDS Instance</strong></a></li>
-        <li><a href="#step-4---create-an-elasticachememcached-cluster"><strong>STEP 4 - Create an ElastiCacheMemcached Cluster</strong></a></li>
-        <li><a href="#step-5---create-an-ami"><strong>STEP 5 - Create an AMI</strong></a></li>
-        <li><a href="#step-6---create-an-elb"><strong>STEP 6 - Create an ELB</strong></a></li>
-        <li><a href="#step-7---testing"><strong>STEP 7 - Testing</strong></a></li>
       </ul>
     </li>
   </ul>
@@ -384,114 +378,6 @@
 <p><img src="images/Untitled%205.png" alt="images/Untitled%205.png"></p>
 </li>
 </ol>
-<ul>
-<li>
-<p><code>sudo apt-get install nfs-common</code></p>
-</li>
-<li>
-<p><code>sudo mkdir /efs</code></p>
-</li>
-<li>
-<p><code>sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2 &lt;dns-endpoint-of-your-efs-file-system&gt;:/ /efs</code></p>
-</li>
-<li>
-<p><code>sudo chown -R ubuntu:ubuntu /efs</code></p>
-</li>
-<li>
-<p>Then we add the mounting stuff into /etc/fstab to add the following line, so that you do not need to manually mount the EFS file system when the operating system is rebooted.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx">&lt;<span style="color:#f92672">dns</span><span style="color:#960050;background-color:#1e0010">-</span><span style="color:#a6e22e">endpoint</span><span style="color:#960050;background-color:#1e0010">-</span><span style="color:#a6e22e">of</span><span style="color:#960050;background-color:#1e0010">-</span><span style="color:#a6e22e">your</span><span style="color:#960050;background-color:#1e0010">-</span><span style="color:#a6e22e">efs</span><span style="color:#960050;background-color:#1e0010">-</span><span style="color:#a6e22e">file</span><span style="color:#960050;background-color:#1e0010">-</span><span style="color:#a6e22e">system</span>&gt;<span style="color:#f92672">:</span><span style="color:#960050;background-color:#1e0010">/  /efs    nfs    auto,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2    0       0</span>
-</code></pre></div></li>
-<li>
-<p>You can verify the above-mentioned configuration is working using the following commands (run them several times):</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#a6e22e">$</span> <span style="color:#a6e22e">df</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">h</span>
-<span style="color:#a6e22e">$</span> <span style="color:#a6e22e">mount</span>
-<span style="color:#a6e22e">$</span> <span style="color:#a6e22e">sudo</span> <span style="color:#a6e22e">umount</span> <span style="color:#f92672">/</span><span style="color:#a6e22e">efs</span>
-<span style="color:#a6e22e">$</span> <span style="color:#a6e22e">sudo</span> <span style="color:#a6e22e">mount</span> <span style="color:#f92672">/</span><span style="color:#a6e22e">efs</span>
-</code></pre></div></li>
-</ul>
-<h3 id="step-2---install-the-apache-and-php">STEP 2 - Install the Apache and PHP</h3>
-<ul>
-<li>
-<p>Run the following commands to install Apache and PHP. Notice that we are not installing the MySQL server this time.</p>
-<ul>
-<li><code>sudo apt-get install apache2 php mysql-client libapache2-mod-php php-mysql php-curl php-xml awscli</code></li>
-<li><code>sudo service apache2 start</code></li>
-</ul>
-</li>
-<li>
-<p>Then we use the EFS file system to store our web application.he EFS file system:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#a6e22e">$</span> <span style="color:#a6e22e">cd</span> <span style="color:#f92672">/</span><span style="color:#a6e22e">efs</span>
-<span style="color:#a6e22e">$</span> <span style="color:#a6e22e">git</span> <span style="color:#a6e22e">clone</span> <span style="color:#a6e22e">https</span><span style="color:#f92672">:</span><span style="color:#75715e">//github.com/qyjohn/web-demo
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">$</span> <span style="color:#a6e22e">cd</span> <span style="color:#a6e22e">web</span><span style="color:#f92672">-</span><span style="color:#a6e22e">demo</span>
-<span style="color:#a6e22e">$</span> <span style="color:#a6e22e">sudo</span> <span style="color:#a6e22e">chown</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">R</span> <span style="color:#a6e22e">www</span><span style="color:#f92672">-</span><span style="color:#a6e22e">data</span><span style="color:#f92672">:</span><span style="color:#a6e22e">www</span><span style="color:#f92672">-</span><span style="color:#a6e22e">data</span> <span style="color:#a6e22e">uploads</span>
-<span style="color:#a6e22e">$</span> <span style="color:#a6e22e">cd</span> <span style="color:#f92672">/</span><span style="color:#66d9ef">var</span><span style="color:#960050;background-color:#1e0010">/www/html</span>
-<span style="color:#a6e22e">$</span> <span style="color:#a6e22e">sudo</span> <span style="color:#a6e22e">ln</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">s</span> <span style="color:#f92672">/</span><span style="color:#a6e22e">efs</span><span style="color:#f92672">/</span><span style="color:#a6e22e">web</span><span style="color:#f92672">-</span><span style="color:#a6e22e">demo</span> <span style="color:#a6e22e">web</span><span style="color:#f92672">-</span><span style="color:#a6e22e">demo</span>
-</code></pre></div></li>
-</ul>
-<h3 id="step-3---launch-an-rds-instance"><strong>STEP 3 - Launch an RDS Instance</strong></h3>
-<ul>
-<li>Launch an RDS instance running MySQL. When launching the RDS instance (Dev/Test-Mysql,  t2.micro), create a default database named “web_demo”.</li>
-<li>When the RDS instance becomes available. Please make sure that the security group being used on the RDS instance allows inbound connection from your EC2 instance. Then, connect to the RDS instance and create a user for your application.</li>
-<li>This time, when granting privileges, you need to grant external access for the user.</li>
-</ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#a6e22e">mysql</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">h</span> [<span style="color:#a6e22e">endpoint</span><span style="color:#f92672">-</span><span style="color:#66d9ef">of</span><span style="color:#f92672">-</span><span style="color:#a6e22e">rds</span><span style="color:#f92672">-</span><span style="color:#a6e22e">instance</span>] <span style="color:#f92672">-</span><span style="color:#a6e22e">u</span> &lt;<span style="color:#f92672">master</span> <span style="color:#a6e22e">username</span>&gt; <span style="color:#f92672">-</span><span style="color:#a6e22e">p</span>
-
-<span style="color:#a6e22e">mysql</span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">CREATE</span> <span style="color:#a6e22e">DATABASE</span> <span style="color:#a6e22e">web_demo</span>;<span style="color:#f92672">*</span>
-<span style="color:#a6e22e">mysql</span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">CREATE</span> <span style="color:#a6e22e">USER</span> <span style="color:#e6db74">&#39;username&#39;</span><span style="color:#960050;background-color:#1e0010">@</span><span style="color:#e6db74">&#39;%&#39;</span> <span style="color:#a6e22e">IDENTIFIED</span> <span style="color:#a6e22e">BY</span> <span style="color:#e6db74">&#39;password&#39;</span>;
-<span style="color:#a6e22e">mysql</span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">GRANT</span> <span style="color:#a6e22e">ALL</span> <span style="color:#a6e22e">PRIVILEGES</span> <span style="color:#a6e22e">ON</span> <span style="color:#a6e22e">web_demo</span>.<span style="color:#f92672">*</span> <span style="color:#a6e22e">TO</span> <span style="color:#e6db74">&#39;username&#39;</span><span style="color:#960050;background-color:#1e0010">@</span><span style="color:#e6db74">&#39;%&#39;</span>;
-<span style="color:#a6e22e">mysql</span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">quit</span>
-</code></pre></div><ul>
-<li>Then, use the following command to import the demo data in web_demo.sql to the web_demo database on the RDS database:</li>
-</ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#a6e22e">$</span> <span style="color:#a6e22e">cd</span> <span style="color:#f92672">/</span><span style="color:#66d9ef">var</span><span style="color:#960050;background-color:#1e0010">/www/html/web-demo</span>
-
-<span style="color:#a6e22e">$</span> <span style="color:#a6e22e">mysql</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">h</span> [<span style="color:#a6e22e">endpoint</span><span style="color:#f92672">-</span><span style="color:#66d9ef">of</span><span style="color:#f92672">-</span><span style="color:#a6e22e">rds</span><span style="color:#f92672">-</span><span style="color:#a6e22e">instance</span>] <span style="color:#f92672">-</span><span style="color:#a6e22e">u</span> <span style="color:#a6e22e">username</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">p</span> <span style="color:#a6e22e">web_demo</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">web_demo</span>.<span style="color:#a6e22e">sql</span>
-</code></pre></div><ul>
-<li>Now, modify config.php with the new database server hostname, username, password, and database name.</li>
-</ul>
-<h3 id="step-4---create-an-elasticachememcached-cluster"><strong>STEP 4 - Create an ElastiCacheMemcached Cluster</strong></h3>
-<ul>
-<li>
-<p>We use ElastiCache to resolve the session sharing issue between multiple web servers. In the ElastiCache console, launch an ElastiCache cluster with Memcached (just 1 single node is enough) and obtain the endpoint information. Please make sure that the security group being used on the ElastiCache cluster allows inbound connection from your EC2 instance.</p>
-</li>
-<li>
-<p>On the web server, configure php.ini to use Memcached for session sharing.</p>
-</li>
-<li>
-<p>Edit /etc/php/7.2/apache2/php.ini. Make the following modifications:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#a6e22e">session</span>.<span style="color:#a6e22e">save_handler</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">memcached</span>
-
-<span style="color:#a6e22e">session</span>.<span style="color:#a6e22e">save_path</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;[dns-endpoint-to-the-elasticache-node]:11211&#34;</span>
-</code></pre></div></li>
-<li>
-<p>Then you need to restart Apache the web server to make the new configuration effective.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#a6e22e">$</span> <span style="color:#a6e22e">sudo</span> <span style="color:#a6e22e">apt</span><span style="color:#f92672">-</span><span style="color:#a6e22e">get</span> <span style="color:#a6e22e">install</span> <span style="color:#a6e22e">php</span><span style="color:#f92672">-</span><span style="color:#a6e22e">memcached</span>
-
-<span style="color:#a6e22e">$</span> <span style="color:#a6e22e">sudo</span> <span style="color:#a6e22e">service</span> <span style="color:#a6e22e">apache2</span> <span style="color:#a6e22e">restart</span>
-</code></pre></div></li>
-<li>
-<p>Edit /etc/php/7.2/mods-available/memcached.ini, add the following two lines to support session redundancy. Please note that the value of memcache.session_redundancy equals to the number of cache nodes plus 1 (because of a bug in PHP).</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#a6e22e">memcache</span>.<span style="color:#a6e22e">allow_failover</span><span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
-<span style="color:#a6e22e">memcache</span>.<span style="color:#a6e22e">session_redundancy</span><span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>
-</code></pre></div></li>
-<li>
-<p>Then you need to restart Apache the web server to make the new configuration effective.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#a6e22e">$</span> <span style="color:#a6e22e">sudo</span> <span style="color:#a6e22e">apt</span><span style="color:#f92672">-</span><span style="color:#a6e22e">get</span> <span style="color:#a6e22e">install</span> <span style="color:#a6e22e">php</span><span style="color:#f92672">-</span><span style="color:#a6e22e">memcache</span>
-
-<span style="color:#a6e22e">$</span> <span style="color:#a6e22e">sudo</span> <span style="color:#a6e22e">service</span> <span style="color:#a6e22e">apache2</span> <span style="color:#a6e22e">restart</span>
-</code></pre></div></li>
-</ul>
-<h3 id="step-5---create-an-ami"><strong>STEP 5 - Create an AMI</strong></h3>
-<p>Now, create an AMI from the EC2 instance and launch a new EC2 instance with the AMI.</p>
-<p><img src="images/Untitled%206.png" alt="images/Untitled%206.png"></p>
-<h3 id="step-6---create-an-elb"><strong>STEP 6 - Create an ELB</strong></h3>
-<p>Create an Application Load Balancer (ALB) and register the two EC2 instances to the ALB target group. Since we do have Apache running on both web servers, you might want to use HTTP as the ping protocol with 80 as the ping port and “/” as the ping path for the health check parameter for your ELB.</p>
-<ul>
-<li>Create Target Group and Register 2 EC2 instances that you created before</li>
-<li>Create Application Load Balancer and attach target group that you created in &lsquo;STEP 1&rsquo;</li>
-</ul>
-<h3 id="step-7---testing"><strong>STEP 7 - Testing</strong></h3>
-<p>In your browser, browser to http://elb-endpoint/web-demo/index.php. As you can see, our demo seems to be working on multiple servers. This is so easy!</p>
 
 
 
@@ -668,19 +554,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1619600851"></script>
-    <script src="/js/perfect-scrollbar.min.js?1619600851"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1619600851"></script>
-    <script src="/js/jquery.sticky.js?1619600851"></script>
-    <script src="/js/featherlight.min.js?1619600851"></script>
-    <script src="/js/highlight.pack.js?1619600851"></script>
+    <script src="/js/clipboard.min.js?1619615347"></script>
+    <script src="/js/perfect-scrollbar.min.js?1619615347"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1619615347"></script>
+    <script src="/js/jquery.sticky.js?1619615347"></script>
+    <script src="/js/featherlight.min.js?1619615347"></script>
+    <script src="/js/highlight.pack.js?1619615347"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1619600851"></script>
-    <script src="/js/learn.js?1619600851"></script>
-    <script src="/js/hugo-learn.js?1619600851"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1619615347"></script>
+    <script src="/js/learn.js?1619615347"></script>
+    <script src="/js/hugo-learn.js?1619615347"></script>
 
-    <link href="/mermaid/mermaid.css?1619600851" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1619600851"></script>
+    <link href="/mermaid/mermaid.css?1619615347" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1619615347"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>
