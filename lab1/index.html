@@ -12,20 +12,20 @@
     <title>실습1. Basic Version :: Building Scalable Web Application</title>
 
     
-    <link href="/css/nucleus.css?1619499944" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1619499944" rel="stylesheet">
-    <link href="/css/hybrid.css?1619499944" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1619499944" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1619499944" rel="stylesheet">
-    <link href="/css/auto-complete.css?1619499944" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1619499944" rel="stylesheet">
-    <link href="/css/theme.css?1619499944" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1619499944" rel="stylesheet">
+    <link href="/css/nucleus.css?1619600851" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1619600851" rel="stylesheet">
+    <link href="/css/hybrid.css?1619600851" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1619600851" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1619600851" rel="stylesheet">
+    <link href="/css/auto-complete.css?1619600851" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1619600851" rel="stylesheet">
+    <link href="/css/theme.css?1619600851" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1619600851" rel="stylesheet">
     
-      <link href="/css/theme-aws.css?1619499944" rel="stylesheet">
+      <link href="/css/theme-aws.css?1619600851" rel="stylesheet">
     
 
-    <script src="/js/jquery-3.3.1.min.js?1619499944"></script>
+    <script src="/js/jquery-3.3.1.min.js?1619600851"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -54,14 +54,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1619499944"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1619499944"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1619600851"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1619600851"></script>
 <script type="text/javascript">
     
         var baseurl = "\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1619499944"></script>
+<script type="text/javascript" src="/js/search.js?1619600851"></script>
 
     
   </div>
@@ -311,6 +311,7 @@
     <li><a href="#level-1--basic-version-all-in-one">Level 1 – Basic Version (All in one)</a></li>
     <li><a href="#인스턴스-시작">인스턴스 시작</a></li>
     <li><a href="#소프트웨어-설치">소프트웨어 설치</a></li>
+    <li><a href="#데모-애플리케이션-확인">데모 애플리케이션 확인</a></li>
   </ul>
 </nav>
     </div>
@@ -350,7 +351,7 @@
 <li>그리고 개발한 소프트웨어를 배포하여 웹 애플리케이션의 동작을 확인합니다.</li>
 <li>클라우드 환경에서 단일 서버는 EC2 이고 웹애플리케이션 구동에 필요한 소프트웨어는 Apache, PHP, MySQL 입니다. EC2 인스턴스로 사용할 이미지(AMI)는 <code>Ubuntu 18.04 AMI</code> 입니다.</li>
 </ul>
-<p><img src="images/image3.png" alt="images/image3.png"></p>
+<p><img src="images/lab1-1.png" alt=""></p>
 <ul>
 <li>EC2 생성에 필요한 단계를 진행하시고 웹서비스와 SSH 접속을 위해 80번과 22번 포트를 열어줍니다.</li>
 <li>EC2 생성이 완료된 후에는 SSH 로 접속하여 MySQL, PHP, Apache 소프트웨어를 설치하고 git 명령을 통해 웹애플리케이션 데모를 위한 개발코드를 다운로드 합니다.</li>
@@ -360,21 +361,34 @@
 <p><code>sudo apt-get update</code></p>
 <p><code>sudo apt-get install mysql-server</code></p>
 <p><code>sudo mysql_secure_installation</code></p>
-<p>👉  type &lsquo;Y&rsquo; for followed question (Y, 0 = LOW, <!-- raw HTML omitted -->. y, ..)</p>
+<p>👉  <strong>아래 내용 확인 하면서 &lsquo;Y&rsquo; 혹은 &lsquo;0&rsquo; 등을 입력하세요.</strong></p>
+<ul>
+<li><em>Press y|Y for Yes, any other key for No : Y</em></li>
+<li><em>Please enter 0 = LOW, 1 = MEDIUM and 2 = STRONG: 0</em></li>
+<li><em>New password: &lt;root 패스워드입력&gt;</em></li>
+<li><em>Re-enter new password: &lt;root 패스워드입력&gt;</em></li>
+<li><em>Do you wish to continue with the password provided?(Press y|Y for Yes, any other key for No) : Y</em></li>
+<li><em>Remove anonymous users? (Press y|Y for Yes, any other key for No) : Y</em></li>
+<li><em>Disallow root login remotely? (Press y|Y for Yes, any other key for No) : Y</em></li>
+<li><em>Remove test database and access to it? (Press y|Y for Yes, any other key for No) : Y</em></li>
+<li><em>Reload privilege tables now? (Press y|Y for Yes, any other key for No) : Y</em></li>
+<li><em>Success.</em></li>
+<li><em>All done!</em></li>
+</ul>
 <p><strong>Apache 와 PHP 설치</strong></p>
 <pre><code>sudo apt-get install apache2 php libapache2-mod-php php-mysql php-curl php-xml php-memcached awscli
 </code></pre><p><strong>Apache 서버 재시작</strong></p>
 <pre><code>sudo service apache2 restart
 </code></pre><p><strong>git 설치 및 데모용 웹애플리케이션 다운로드</strong></p>
-<pre><code>sudo apt-get install git
-cd /var
-sudo chown -R ubuntu:ubuntu www
-cd /var/www/html
-git clone https://github.com/qyjohn/web-demo
-cd web-demo
-</code></pre><p><strong>웹서비스용 디렉토리 권한 변경</strong></p>
-<pre><code>  sudo chown -R www-data:www-data uploads*
-</code></pre><p><strong>데모용 웹애플리케이션 데이터베이스 생성</strong></p>
+<p><code>sudo apt-get install git</code></p>
+<p><code>cd /var</code></p>
+<p><code>sudo chown -R ubuntu:ubuntu www</code></p>
+<p><code>cd /var/www/html</code></p>
+<p><code>git clone https://github.com/qyjohn/web-demo</code></p>
+<p><code>cd web-demo</code></p>
+<p><strong>웹서비스용 디렉토리 권한 변경</strong></p>
+<p><code>sudo chown -R www-data:www-data uploads*</code></p>
+<p><strong>데모용 웹애플리케이션 데이터베이스 생성</strong></p>
 <p><code>sudo mysql</code></p>
 <pre><code>CREATE DATABASE web_demo;
 CREATE USER 'username'@'localhost' IDENTIFIED BY 'password';
@@ -387,11 +401,16 @@ quit
 </ul>
 <pre><code>cd /var/www/html/web-demo
 mysql -u username -p web_demo &lt; web_demo.sql
-</code></pre><p><strong>주의사항</strong></p>
+</code></pre><p>👉  **SQL문이 포함된 .sql 을 이용하여 데모용 데이터 추가할 때 패스워드 입력 필요 **</p>
+<ul>
+<li><em>ubuntu@ip-172-31-1-24:/var/www/html/web-demo$ cd /var/www/html/web-demo</em></li>
+<li><em>ubuntu@ip-172-31-1-24:/var/www/html/web-demo$ mysql -u username -p web_demo &lt; web_demo.sql</em></li>
+<li><em>Enter password: <!-- raw HTML omitted --> 에 대한 password 입력</em></li>
+</ul>
+<p><strong>주의사항</strong></p>
 <ul>
 <li>만약 데이터베이스이름, 사용자이름, 비밀번호를 변경하고 싶을 경우 vi 에디터를 이용하여config.php 의 내용을 직접 수정하시기 바랍니다.</li>
-<li>PC 에 있는 아무 인터넷브라우저 주소창에 <a href="http://ip-address/web-demo/index.php">http://ip-address/web-demo/index.php</a> 를 입력하여 데모 애플리케이션을 확인해 보시기 바랍니다.</li>
-<li>기타 데모 애플리케이션과 관련된 제약 사항은 아래 내용을 참고해주세요.</li>
+<li>데모 애플리케이션과 관련된 제약 사항은 아래 내용을 참고해주세요.</li>
 </ul>
 <blockquote>
 <p>You can login with your name, then upload some photos for testing. (You might have noticed that this demo application does not ask you for a password. This is because we would like to make things as simple as possible. Handling user password is a very complicate issue, which is beyond the scope of this entry level tutorial.) Then I suggest that you spend 10 minutes reading through the demo code index.php. The demo code has reasonable documentation in the form of comments, so I am not going to explain the code here.</p>
@@ -399,6 +418,12 @@ mysql -u username -p web_demo &lt; web_demo.sql
 <blockquote>
 <p>Now you are able to get your website working, please upload some more pictures for testing. Upload some small pictures and some big pictures (like 20 MB) to see what happens. Fix any issues you may observe in the tests.</p>
 </blockquote>
+<p>**</p>
+<h2 id="데모-애플리케이션-확인">데모 애플리케이션 확인</h2>
+<ul>
+<li>PC 에 있는 아무 인터넷브라우저 주소창에 <a href="http://ip-address/web-demo/index.php">http://ip-address/web-demo/index.php</a> 를 입력하여 데모 애플리케이션을 확인해 보시기 바랍니다.</li>
+</ul>
+<p><img src="images/lab1-2.png" alt=""></p>
 
 
 
@@ -572,19 +597,19 @@ mysql -u username -p web_demo &lt; web_demo.sql
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1619499944"></script>
-    <script src="/js/perfect-scrollbar.min.js?1619499944"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1619499944"></script>
-    <script src="/js/jquery.sticky.js?1619499944"></script>
-    <script src="/js/featherlight.min.js?1619499944"></script>
-    <script src="/js/highlight.pack.js?1619499944"></script>
+    <script src="/js/clipboard.min.js?1619600851"></script>
+    <script src="/js/perfect-scrollbar.min.js?1619600851"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1619600851"></script>
+    <script src="/js/jquery.sticky.js?1619600851"></script>
+    <script src="/js/featherlight.min.js?1619600851"></script>
+    <script src="/js/highlight.pack.js?1619600851"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1619499944"></script>
-    <script src="/js/learn.js?1619499944"></script>
-    <script src="/js/hugo-learn.js?1619499944"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1619600851"></script>
+    <script src="/js/learn.js?1619600851"></script>
+    <script src="/js/hugo-learn.js?1619600851"></script>
 
-    <link href="/mermaid/mermaid.css?1619499944" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1619499944"></script>
+    <link href="/mermaid/mermaid.css?1619600851" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1619600851"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

@@ -12,20 +12,20 @@
     <title>실습2. Load Balanced Solution :: Building Scalable Web Application</title>
 
     
-    <link href="/css/nucleus.css?1619499944" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1619499944" rel="stylesheet">
-    <link href="/css/hybrid.css?1619499944" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1619499944" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1619499944" rel="stylesheet">
-    <link href="/css/auto-complete.css?1619499944" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1619499944" rel="stylesheet">
-    <link href="/css/theme.css?1619499944" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1619499944" rel="stylesheet">
+    <link href="/css/nucleus.css?1619600851" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1619600851" rel="stylesheet">
+    <link href="/css/hybrid.css?1619600851" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1619600851" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1619600851" rel="stylesheet">
+    <link href="/css/auto-complete.css?1619600851" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1619600851" rel="stylesheet">
+    <link href="/css/theme.css?1619600851" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1619600851" rel="stylesheet">
     
-      <link href="/css/theme-aws.css?1619499944" rel="stylesheet">
+      <link href="/css/theme-aws.css?1619600851" rel="stylesheet">
     
 
-    <script src="/js/jquery-3.3.1.min.js?1619499944"></script>
+    <script src="/js/jquery-3.3.1.min.js?1619600851"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -54,14 +54,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1619499944"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1619499944"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1619600851"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1619600851"></script>
 <script type="text/javascript">
     
         var baseurl = "\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1619499944"></script>
+<script type="text/javascript" src="/js/search.js?1619600851"></script>
 
     
   </div>
@@ -356,10 +356,15 @@
 <h3 id="step-1---efs-file-system-준비">STEP 1 - EFS File System 준비</h3>
 <ul>
 <li>
-<p>Go to the EFS Console and create an EFS file system. (Note the DNS Name for EFS file system. You need this value for the next step)</p>
+<p>Elastic File System 콘솔로 이동하여 EFS 파일 시스템을 생성합니다. (EFS 파일 시스템 생성후 DNS 이름을 메모해두시기 바랍니다. 다음 단계에서 해당 정보가 필요합니다.(<em><strong>Amazon EFS &gt; File systems &gt; <!-- raw HTML omitted --> -&gt; Attach 버튼 클릭하여 DNS 확인</strong></em>)
+<img src="images/lab2-2.png" alt=""></p>
 </li>
 <li>
-<p>Terminate the previous EC2 instance because we no longer need it. Launch a new EC2 instance with the Ubuntu 18.04 operating system. SSH into the EC2 instance to install the following software and mount the EFS file system:</p>
+<p>이전 단계에서 생성하여 실습했던 EC2 인스턴스가 이후 단계에서부터는 더이상 필요하지 않기 때문에 종료하시기 바랍니다.
+<img src="images/lab2-1.png" alt=""></p>
+</li>
+<li>
+<p>그리고 새롭게 EC2 인스턴스를 생성하시기 바랍니다. ( Launch a new EC2 instance with the Ubuntu 18.04 operating system. SSH into the EC2 instance to install the following software and mount the EFS file system:)</p>
 <ul>
 <li><code>sudo apt-get update</code></li>
 <li><code>sudo apt-get install nfs-common</code></li>
@@ -391,26 +396,27 @@
 </li>
 <li>
 <p>Then we use the EFS file system to store our web application.he EFS file system:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#a6e22e">$</span> <span style="color:#a6e22e">cd</span> <span style="color:#f92672">/</span><span style="color:#a6e22e">efs</span>
-<span style="color:#a6e22e">$</span> <span style="color:#a6e22e">git</span> <span style="color:#a6e22e">clone</span> <span style="color:#a6e22e">https</span><span style="color:#f92672">:</span><span style="color:#75715e">//github.com/qyjohn/web-demo
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">$</span> <span style="color:#a6e22e">cd</span> <span style="color:#a6e22e">web</span><span style="color:#f92672">-</span><span style="color:#a6e22e">demo</span>
-<span style="color:#a6e22e">$</span> <span style="color:#a6e22e">sudo</span> <span style="color:#a6e22e">chown</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">R</span> <span style="color:#a6e22e">www</span><span style="color:#f92672">-</span><span style="color:#a6e22e">data</span><span style="color:#f92672">:</span><span style="color:#a6e22e">www</span><span style="color:#f92672">-</span><span style="color:#a6e22e">data</span> <span style="color:#a6e22e">uploads</span>
-<span style="color:#a6e22e">$</span> <span style="color:#a6e22e">cd</span> <span style="color:#f92672">/</span><span style="color:#66d9ef">var</span><span style="color:#960050;background-color:#1e0010">/www/html</span>
-<span style="color:#a6e22e">$</span> <span style="color:#a6e22e">sudo</span> <span style="color:#a6e22e">ln</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">s</span> <span style="color:#f92672">/</span><span style="color:#a6e22e">efs</span><span style="color:#f92672">/</span><span style="color:#a6e22e">web</span><span style="color:#f92672">-</span><span style="color:#a6e22e">demo</span> <span style="color:#a6e22e">web</span><span style="color:#f92672">-</span><span style="color:#a6e22e">demo</span>
-</code></pre></div></li>
+<p><code>$ cd /efs</code></p>
+<p><code>$ git clone https://github.com/qyjohn/web-demo</code></p>
+<p><code>$ cd web-demo</code></p>
+<p><code>$ sudo chown -R www-data:www-data uploads</code></p>
+<p><code>$ cd /var/www/html</code></p>
+<p><code>$ sudo ln -s /efs/web-demo web-demo</code></p>
+</li>
 </ul>
 <h3 id="step-3---launch-an-rds-instance"><strong>STEP 3 - Launch an RDS Instance</strong></h3>
 <ul>
-<li>Launch an RDS instance running MySQL. When launching the RDS instance (Dev/Test-Mysql,  t2.micro), create a default database named “web_demo”.</li>
+<li>Launch an RDS instance running MySQL. When launching the RDS instance (Dev/Test-Mysql,  t2.micro), create a default database named “pep-webapp”.
+<img src="images/lab2-3.png" alt="">
+<img src="images/lab2-4.png" alt=""></li>
 <li>When the RDS instance becomes available. Please make sure that the security group being used on the RDS instance allows inbound connection from your EC2 instance. Then, connect to the RDS instance and create a user for your application.</li>
 <li>This time, when granting privileges, you need to grant external access for the user.</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#a6e22e">mysql</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">h</span> [<span style="color:#a6e22e">endpoint</span><span style="color:#f92672">-</span><span style="color:#66d9ef">of</span><span style="color:#f92672">-</span><span style="color:#a6e22e">rds</span><span style="color:#f92672">-</span><span style="color:#a6e22e">instance</span>] <span style="color:#f92672">-</span><span style="color:#a6e22e">u</span> &lt;<span style="color:#f92672">master</span> <span style="color:#a6e22e">username</span>&gt; <span style="color:#f92672">-</span><span style="color:#a6e22e">p</span>
-
-<span style="color:#a6e22e">mysql</span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">CREATE</span> <span style="color:#a6e22e">DATABASE</span> <span style="color:#a6e22e">web_demo</span>;<span style="color:#f92672">*</span>
-<span style="color:#a6e22e">mysql</span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">CREATE</span> <span style="color:#a6e22e">USER</span> <span style="color:#e6db74">&#39;username&#39;</span><span style="color:#960050;background-color:#1e0010">@</span><span style="color:#e6db74">&#39;%&#39;</span> <span style="color:#a6e22e">IDENTIFIED</span> <span style="color:#a6e22e">BY</span> <span style="color:#e6db74">&#39;password&#39;</span>;
-<span style="color:#a6e22e">mysql</span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">GRANT</span> <span style="color:#a6e22e">ALL</span> <span style="color:#a6e22e">PRIVILEGES</span> <span style="color:#a6e22e">ON</span> <span style="color:#a6e22e">web_demo</span>.<span style="color:#f92672">*</span> <span style="color:#a6e22e">TO</span> <span style="color:#e6db74">&#39;username&#39;</span><span style="color:#960050;background-color:#1e0010">@</span><span style="color:#e6db74">&#39;%&#39;</span>;
-<span style="color:#a6e22e">mysql</span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">quit</span>
+<p><code>mysql -h [endpoint-of-rds-instance] -u &lt;master username&gt; -p</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#a6e22e">CREATE</span> <span style="color:#a6e22e">DATABASE</span> <span style="color:#a6e22e">web_demo</span>;
+<span style="color:#a6e22e">CREATE</span> <span style="color:#a6e22e">USER</span> <span style="color:#e6db74">&#39;username&#39;</span><span style="color:#960050;background-color:#1e0010">@</span><span style="color:#e6db74">&#39;%&#39;</span> <span style="color:#a6e22e">IDENTIFIED</span> <span style="color:#a6e22e">BY</span> <span style="color:#e6db74">&#39;password&#39;</span>;
+<span style="color:#a6e22e">GRANT</span> <span style="color:#a6e22e">ALL</span> <span style="color:#a6e22e">PRIVILEGES</span> <span style="color:#a6e22e">ON</span> <span style="color:#a6e22e">web_demo</span>.<span style="color:#f92672">*</span> <span style="color:#a6e22e">TO</span> <span style="color:#e6db74">&#39;username&#39;</span><span style="color:#960050;background-color:#1e0010">@</span><span style="color:#e6db74">&#39;%&#39;</span>;
+<span style="color:#a6e22e">quit</span>
 </code></pre></div><ul>
 <li>Then, use the following command to import the demo data in web_demo.sql to the web_demo database on the RDS database:</li>
 </ul>
@@ -423,7 +429,8 @@
 <h3 id="step-4---create-an-elasticachememcached-cluster"><strong>STEP 4 - Create an ElastiCacheMemcached Cluster</strong></h3>
 <ul>
 <li>
-<p>We use ElastiCache to resolve the session sharing issue between multiple web servers. In the ElastiCache console, launch an ElastiCache cluster with Memcached (just 1 single node is enough) and obtain the endpoint information. Please make sure that the security group being used on the ElastiCache cluster allows inbound connection from your EC2 instance.</p>
+<p>We use ElastiCache to resolve the session sharing issue between multiple web servers. In the ElastiCache console, launch an ElastiCache cluster with Memcached (just 1 single node is enough) and obtain the endpoint information. Please make sure that the security group being used on the ElastiCache cluster allows inbound connection from your EC2 instance.
+<img src="images/lab2-5.png" alt=""></p>
 </li>
 <li>
 <p>On the web server, configure php.ini to use Memcached for session sharing.</p>
@@ -454,7 +461,8 @@
 </ul>
 <h3 id="step-5---create-an-ami"><strong>STEP 5 - Create an AMI</strong></h3>
 <p>Now, create an AMI from the EC2 instance and launch a new EC2 instance with the AMI.</p>
-<p><img src="images/Untitled%206.png" alt="images/Untitled%206.png"></p>
+<p><img src="images/lab2-6.png" alt="">
+<img src="images/lab2-7.png" alt=""></p>
 <h3 id="step-6---create-an-elb"><strong>STEP 6 - Create an ELB</strong></h3>
 <p>Create an Application Load Balancer (ALB) and register the two EC2 instances to the ALB target group. Since we do have Apache running on both web servers, you might want to use HTTP as the ping protocol with 80 as the ping port and “/” as the ping path for the health check parameter for your ELB.</p>
 <ul>
@@ -639,19 +647,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1619499944"></script>
-    <script src="/js/perfect-scrollbar.min.js?1619499944"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1619499944"></script>
-    <script src="/js/jquery.sticky.js?1619499944"></script>
-    <script src="/js/featherlight.min.js?1619499944"></script>
-    <script src="/js/highlight.pack.js?1619499944"></script>
+    <script src="/js/clipboard.min.js?1619600851"></script>
+    <script src="/js/perfect-scrollbar.min.js?1619600851"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1619600851"></script>
+    <script src="/js/jquery.sticky.js?1619600851"></script>
+    <script src="/js/featherlight.min.js?1619600851"></script>
+    <script src="/js/highlight.pack.js?1619600851"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1619499944"></script>
-    <script src="/js/learn.js?1619499944"></script>
-    <script src="/js/hugo-learn.js?1619499944"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1619600851"></script>
+    <script src="/js/learn.js?1619600851"></script>
+    <script src="/js/hugo-learn.js?1619600851"></script>
 
-    <link href="/mermaid/mermaid.css?1619499944" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1619499944"></script>
+    <link href="/mermaid/mermaid.css?1619600851" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1619600851"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>
