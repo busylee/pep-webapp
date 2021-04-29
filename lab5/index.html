@@ -12,20 +12,20 @@
     <title>실습5. DB Cache :: Building Scalable Web Application</title>
 
     
-    <link href="/css/nucleus.css?1619615347" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1619615347" rel="stylesheet">
-    <link href="/css/hybrid.css?1619615347" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1619615347" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1619615347" rel="stylesheet">
-    <link href="/css/auto-complete.css?1619615347" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1619615347" rel="stylesheet">
-    <link href="/css/theme.css?1619615347" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1619615347" rel="stylesheet">
+    <link href="/css/nucleus.css?1619675756" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1619675756" rel="stylesheet">
+    <link href="/css/hybrid.css?1619675756" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1619675756" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1619675756" rel="stylesheet">
+    <link href="/css/auto-complete.css?1619675756" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1619675756" rel="stylesheet">
+    <link href="/css/theme.css?1619675756" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1619675756" rel="stylesheet">
     
-      <link href="/css/theme-aws.css?1619615347" rel="stylesheet">
+      <link href="/css/theme-aws.css?1619675756" rel="stylesheet">
     
 
-    <script src="/js/jquery-3.3.1.min.js?1619615347"></script>
+    <script src="/js/jquery-3.3.1.min.js?1619675756"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -54,14 +54,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1619615347"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1619615347"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1619675756"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1619675756"></script>
 <script type="text/javascript">
     
         var baseurl = "\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1619615347"></script>
+<script type="text/javascript" src="/js/search.js?1619675756"></script>
 
     
   </div>
@@ -364,6 +364,14 @@ $cache_type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#3
 {
     $cache <span style="color:#f92672">=</span> <span style="color:#a6e22e">open_redis_connection</span>();
 }
+
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">open_memcache_connection</span>()
+{
+<span style="color:#75715e">// Open a connection to the memcache server
+</span><span style="color:#75715e"></span>$mem <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Memcached</span>();
+$mem<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">addServer</span>(<span style="color:#a6e22e">‘webapp</span><span style="color:#f92672">.</span><span style="color:#a6e22e">th7ige</span><span style="color:#f92672">.</span><span style="color:#a6e22e">cfg</span><span style="color:#f92672">.</span><span style="color:#a6e22e">apn2</span><span style="color:#f92672">.</span><span style="color:#a6e22e">cache</span><span style="color:#f92672">.</span><span style="color:#a6e22e">amazonaws</span><span style="color:#f92672">.</span><span style="color:#a6e22e">com’</span>, <span style="color:#ae81ff">11211</span>);  <span style="color:#75715e">// node 1
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">return</span> $mem;
+}
 </code></pre></div></li>
 <li>
 <p>Use AutoScaling to scale your server fleet in a dynamic fashion
@@ -589,19 +597,19 @@ Refresh the demo application in your browser, you will see that the “Getting l
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1619615347"></script>
-    <script src="/js/perfect-scrollbar.min.js?1619615347"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1619615347"></script>
-    <script src="/js/jquery.sticky.js?1619615347"></script>
-    <script src="/js/featherlight.min.js?1619615347"></script>
-    <script src="/js/highlight.pack.js?1619615347"></script>
+    <script src="/js/clipboard.min.js?1619675756"></script>
+    <script src="/js/perfect-scrollbar.min.js?1619675756"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1619675756"></script>
+    <script src="/js/jquery.sticky.js?1619675756"></script>
+    <script src="/js/featherlight.min.js?1619675756"></script>
+    <script src="/js/highlight.pack.js?1619675756"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1619615347"></script>
-    <script src="/js/learn.js?1619615347"></script>
-    <script src="/js/hugo-learn.js?1619615347"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1619675756"></script>
+    <script src="/js/learn.js?1619675756"></script>
+    <script src="/js/hugo-learn.js?1619675756"></script>
 
-    <link href="/mermaid/mermaid.css?1619615347" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1619615347"></script>
+    <link href="/mermaid/mermaid.css?1619675756" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1619675756"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

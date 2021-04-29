@@ -12,20 +12,20 @@
     <title>실습3. S3 Integration :: Building Scalable Web Application</title>
 
     
-    <link href="/css/nucleus.css?1619615347" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1619615347" rel="stylesheet">
-    <link href="/css/hybrid.css?1619615347" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1619615347" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1619615347" rel="stylesheet">
-    <link href="/css/auto-complete.css?1619615347" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1619615347" rel="stylesheet">
-    <link href="/css/theme.css?1619615347" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1619615347" rel="stylesheet">
+    <link href="/css/nucleus.css?1619675756" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1619675756" rel="stylesheet">
+    <link href="/css/hybrid.css?1619675756" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1619675756" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1619675756" rel="stylesheet">
+    <link href="/css/auto-complete.css?1619675756" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1619675756" rel="stylesheet">
+    <link href="/css/theme.css?1619675756" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1619675756" rel="stylesheet">
     
-      <link href="/css/theme-aws.css?1619615347" rel="stylesheet">
+      <link href="/css/theme-aws.css?1619675756" rel="stylesheet">
     
 
-    <script src="/js/jquery-3.3.1.min.js?1619615347"></script>
+    <script src="/js/jquery-3.3.1.min.js?1619675756"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -54,14 +54,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1619615347"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1619615347"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1619675756"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1619675756"></script>
 <script type="text/javascript">
     
         var baseurl = "\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1619615347"></script>
+<script type="text/javascript" src="/js/search.js?1619675756"></script>
 
     
   </div>
@@ -367,12 +367,12 @@
 </span><span style="color:#75715e"></span>$s3_region  <span style="color:#f92672">=</span> <span style="color:#a6e22e">“ap</span><span style="color:#f92672">-</span><span style="color:#a6e22e">northeast</span><span style="color:#f92672">-</span><span style="color:#ae81ff">2</span><span style="color:#e6db74">&#34;;
 </span><span style="color:#e6db74"></span><span style="color:#e6db74">$s3_bucket</span><span style="color:#e6db74">  = &#34;</span><span style="color:#a6e22e">your_s3_bucket_name</span><span style="color:#e6db74">&#34;;
 </span><span style="color:#e6db74"></span><span style="color:#e6db74">$s3_prefix</span><span style="color:#e6db74">  = &#34;</span><span style="color:#a6e22e">uploads</span><span style="color:#e6db74">&#34;;
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">$s3_baseurl</span><span style="color:#e6db74"> = &#34;</span><span style="color:#a6e22e">https</span><span style="color:#f92672">://</span><span style="color:#a6e22e">s3</span><span style="color:#f92672">.</span><span style="color:#a6e22e">ap</span><span style="color:#f92672">-</span><span style="color:#a6e22e">northeast</span><span style="color:#f92672">-</span><span style="color:#ae81ff">2.</span><span style="color:#a6e22e">amazonaws</span><span style="color:#f92672">.</span><span style="color:#a6e22e">com</span><span style="color:#f92672">/</span><span style="color:#e6db74">&#34;;
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">$s3_baseurl</span><span style="color:#e6db74"> = “https://“.</span><span style="color:#e6db74">$s3_bucket</span><span style="color:#e6db74">.“.s3.ap-northeast-2.amazonaws.com”;
 </span></code></pre></div></li>
 </ul>
 <h3 id="step-3---attach-iam-role-to-both-ec2-instances"><strong>STEP 3 - Attach IAM Role to both EC2 Instances</strong></h3>
 <ul>
-<li>In order for this new setting to work, we need to attach an IAM Role to both EC2 instances. In the IAM Console, create an EC2 Role in the IAM Console, which allows full access to S3 (IAM Console -&gt; Role -&gt; Create Role -&gt; AWS Service -&gt; EC2 -&gt; EC2 -&gt; Amazon S3 Full Access). In the EC2 Console, attach the newly created role to both EC2 instances one by one (Instance -&gt; Actions -&gt; Instance Settings -&gt; Attach/Replace IAM Role).</li>
+<li>In order for this new setting to work, we need to attach an IAM Role to both EC2 instances. In the IAM Console, create an EC2 Role in the IAM Console, which allows full access to S3 (IAM Console -&gt; Role -&gt; Create Role -&gt; AWS Service -&gt; EC2 -&gt; EC2 -&gt; Amazon S3 Full Access). In the EC2 Console, attach the newly created role to both EC2 instances one by one (Instance -&gt; Actions -&gt; Security -&gt; Modify IAM Role).</li>
 <li>In your browser, again browse to <a href="http://elb-endpoint/web-demo/index.php">http://elb-endpoint/web-demo/index.php</a>. At this point you will see missing images, because the previously uploaded images are not available on S3. Newly uploaded images will go to S3 instead of local disk.
 The reason we use IAM Role in this tutorial is that with IAM Role you do not need to supply your AWS Access Key and Secret Key in your code. Rather, Your code will assume the role assigned to the EC2 instance, and access the AWS resources that your EC2 instance is allowed to access. Today many people and organizations host their source code on <a href="http://github.com/">github.com</a> or some other public repositories. By using IAM roles you no longer hard code your AWS credentials in your application, thus eliminating the possibility of leaking your AWS credentials to the public.</li>
 </ul>
@@ -552,19 +552,19 @@ The reason we use IAM Role in this tutorial is that with IAM Role you do not nee
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1619615347"></script>
-    <script src="/js/perfect-scrollbar.min.js?1619615347"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1619615347"></script>
-    <script src="/js/jquery.sticky.js?1619615347"></script>
-    <script src="/js/featherlight.min.js?1619615347"></script>
-    <script src="/js/highlight.pack.js?1619615347"></script>
+    <script src="/js/clipboard.min.js?1619675756"></script>
+    <script src="/js/perfect-scrollbar.min.js?1619675756"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1619675756"></script>
+    <script src="/js/jquery.sticky.js?1619675756"></script>
+    <script src="/js/featherlight.min.js?1619675756"></script>
+    <script src="/js/highlight.pack.js?1619675756"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1619615347"></script>
-    <script src="/js/learn.js?1619615347"></script>
-    <script src="/js/hugo-learn.js?1619615347"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1619675756"></script>
+    <script src="/js/learn.js?1619675756"></script>
+    <script src="/js/hugo-learn.js?1619675756"></script>
 
-    <link href="/mermaid/mermaid.css?1619615347" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1619615347"></script>
+    <link href="/mermaid/mermaid.css?1619675756" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1619675756"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

@@ -12,20 +12,20 @@
     <title>실습4. AutoScaling :: Building Scalable Web Application</title>
 
     
-    <link href="/css/nucleus.css?1619615347" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1619615347" rel="stylesheet">
-    <link href="/css/hybrid.css?1619615347" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1619615347" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1619615347" rel="stylesheet">
-    <link href="/css/auto-complete.css?1619615347" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1619615347" rel="stylesheet">
-    <link href="/css/theme.css?1619615347" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1619615347" rel="stylesheet">
+    <link href="/css/nucleus.css?1619675756" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1619675756" rel="stylesheet">
+    <link href="/css/hybrid.css?1619675756" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1619675756" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1619675756" rel="stylesheet">
+    <link href="/css/auto-complete.css?1619675756" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1619675756" rel="stylesheet">
+    <link href="/css/theme.css?1619675756" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1619675756" rel="stylesheet">
     
-      <link href="/css/theme-aws.css?1619615347" rel="stylesheet">
+      <link href="/css/theme-aws.css?1619675756" rel="stylesheet">
     
 
-    <script src="/js/jquery-3.3.1.min.js?1619615347"></script>
+    <script src="/js/jquery-3.3.1.min.js?1619675756"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -54,14 +54,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1619615347"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1619615347"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1619675756"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1619675756"></script>
 <script type="text/javascript">
     
         var baseurl = "\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1619615347"></script>
+<script type="text/javascript" src="/js/search.js?1619675756"></script>
 
     
   </div>
@@ -349,7 +349,7 @@
 <ul>
 <li>
 <p>If you look at /efs/web-demo/config.php, you will find this piece of code:</p>
-<p><code>$latency = 0; -&gt; 1 (seconds)</code></p>
+<p><code>$latency = 1; // Change it from 0 -&gt; 1 (seconds)</code></p>
 </li>
 <li>
 <p>And, in /efs/web-demo/index.php, there is a corresponding statement:</p>
@@ -359,23 +359,22 @@
 <h3 id="오토스케이링을-이용하여-동적으로-백엔드-서버-수-조정">오토스케이링을 이용하여 동적으로 백엔드 서버 수 조정</h3>
 <ol>
 <li>
-<p>In your EC2 Console, create a launch configuration using the AMI and the IAM Role that we created in LEVEL 3.</p>
+<p>In your EC2 Console, create a launch configuration using the AMI and the IAM Role that we created in LEVEL-3.
+<img src="images/lab4-1.png" alt=""></p>
 </li>
 <li>
-<p>Create an AutoScaling group using the launch configuration we created in step &lsquo;1&rsquo;, make sure that the AutoScaling group receives traffic from your ALB target group. Also, change the health check type from EC2 to ELB. (This way, when the ELB determines that an instance is unhealthy, the AutoScaling group will terminate it.) You don’t need to specify any scaling policy at this point.</p>
-<p><img src="images/Untitled.png" alt="images/Untitled.png"></p>
+<p>Create an AutoScaling group using the launch configuration we created in step &lsquo;1&rsquo;, make sure that the AutoScaling group receives traffic from your ALB target group. Also, change the health check type from EC2 to ELB. (This way, when the ELB determines that an instance is unhealthy, the AutoScaling group will terminate it.) You don’t need to specify any scaling policy at this point.
+<img src="images/lab4-2.png" alt=""></p>
 </li>
 <li>
-<p>Click on your ELB and create a new CloudWatch Alarm (ELB -&gt; Monitoring -&gt; Create Alarm) when the average latency (response time) is greater than 1 secs for at least 1 minutes.</p>
-<p><img src="images/Untitled%201.png" alt="images/Untitled%201.png"></p>
-<p><img src="images/Untitled%202.png" alt="images/Untitled%202.png"></p>
-<p><img src="images/Untitled%203.png" alt="images/Untitled%203.png"></p>
+<p>Click on your ELB and create a new CloudWatch Alarm (ELB -&gt; Monitoring -&gt; Create Alarm) when the average latency (response time) is greater than 1 secs for at least 1 minutes.
+<img src="images/lab4-3.png" alt=""></p>
 </li>
 <li>
 <p>Click on your AutoScaling group, and create a new simple scaling policy (AutoScaling -&gt; Scaling Policies -&gt; Add policy ), using the CloudWatch Alarm you just created. The auto scaling action can be “add 1 instance and then wait 300 seconds”. This way, if the average latency of your web application exceeds 1 second, AutoScaling will add one more instance to your fleet. You can do the testing by adjusting the $latency value on your existing web servers. Please note the source code resides on your EFS file system, when you make the change from one of your EC2 instances, the change is reflected on all of your EC2 instances.</p>
 <p><img src="images/Untitled%204.png" alt="images/Untitled%204.png"></p>
-<p>When you are done with this step, you can play with scaling down by creating another  CloudWatch Alarm and a corresponding auto scaling policy. The CloudWatch alarm will be alarmed when the average latency is smaller than 500 ms for at least 1 minute, and the auto scaling action can be “remove 1 instance and then wait 300 seconds”.</p>
-<p><img src="images/Untitled%205.png" alt="images/Untitled%205.png"></p>
+<p>When you are done with this step, you can play with scaling down by creating another  CloudWatch Alarm and a corresponding auto scaling policy. The CloudWatch alarm will be alarmed when the average latency is smaller than 500 ms for at least 1 minute, and the auto scaling action can be “remove 1 instance and then wait 300 seconds”.
+<img src="images/lab4-4.png" alt=""></p>
 </li>
 </ol>
 
@@ -554,19 +553,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1619615347"></script>
-    <script src="/js/perfect-scrollbar.min.js?1619615347"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1619615347"></script>
-    <script src="/js/jquery.sticky.js?1619615347"></script>
-    <script src="/js/featherlight.min.js?1619615347"></script>
-    <script src="/js/highlight.pack.js?1619615347"></script>
+    <script src="/js/clipboard.min.js?1619675756"></script>
+    <script src="/js/perfect-scrollbar.min.js?1619675756"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1619675756"></script>
+    <script src="/js/jquery.sticky.js?1619675756"></script>
+    <script src="/js/featherlight.min.js?1619675756"></script>
+    <script src="/js/highlight.pack.js?1619675756"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1619615347"></script>
-    <script src="/js/learn.js?1619615347"></script>
-    <script src="/js/hugo-learn.js?1619615347"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1619675756"></script>
+    <script src="/js/learn.js?1619675756"></script>
+    <script src="/js/hugo-learn.js?1619675756"></script>
 
-    <link href="/mermaid/mermaid.css?1619615347" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1619615347"></script>
+    <link href="/mermaid/mermaid.css?1619675756" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1619675756"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>
