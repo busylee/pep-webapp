@@ -372,9 +372,9 @@
 </li>
 <li>
 <p>Click on your AutoScaling group, and create a new simple scaling policy (AutoScaling -&gt; Scaling Policies -&gt; Add policy ), using the CloudWatch Alarm you just created. The auto scaling action can be “add 1 instance and then wait 300 seconds”. This way, if the average latency of your web application exceeds 1 second, AutoScaling will add one more instance to your fleet. You can do the testing by adjusting the $latency value on your existing web servers. Please note the source code resides on your EFS file system, when you make the change from one of your EC2 instances, the change is reflected on all of your EC2 instances.</p>
-<p><img src="images/Untitled%204.png" alt="images/Untitled%204.png"></p>
+<p><img src="images/lab4-4.png" alt="images/Untitled%204.png"></p>
 <p>When you are done with this step, you can play with scaling down by creating another  CloudWatch Alarm and a corresponding auto scaling policy. The CloudWatch alarm will be alarmed when the average latency is smaller than 500 ms for at least 1 minute, and the auto scaling action can be “remove 1 instance and then wait 300 seconds”.
-<img src="images/lab4-4.png" alt=""></p>
+<img src="images/lab4-5.png" alt=""></p>
 </li>
 </ol>
 
